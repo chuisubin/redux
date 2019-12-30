@@ -6,8 +6,18 @@ import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import store from "./src/store";
 import { Provider } from "react-redux";
+import { I18nextProvider, translate } from "react-i18next";
 
 import AppNavigator from "./src/navigation/AppNavigator";
+
+const WrappedStack = () => {
+  return <AppNavigator screenProps={{ t: i18n.getFixedT(), i18n }} />;
+};
+
+const ReloadAppOnLanguageChange = translate("translation", {
+  bindI18n: "languageChanged",
+  bindStore: false
+})(WrappedStack);
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -25,7 +35,7 @@ export default function App(props) {
       <Provider store={store}>
         <View style={styles.container}>
           {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          <ReloadAppOnLanguageChange isConnected={isConnected} />
         </View>
       </Provider>
     );

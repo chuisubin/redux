@@ -16,7 +16,7 @@ import {
   AddFdList
 } from "../actions";
 import { connect } from "react-redux";
-
+import i18n from "../language";
 const HomeScreen = props => {
   return (
     <View style={styles.container}>
@@ -51,7 +51,9 @@ const HomeScreen = props => {
 
       {props.Fd && (
         <View>
-          <Text>name:{props.Fd.name}</Text>
+          <Text>
+            {i18n.t("name")}:{props.Fd.name}
+          </Text>
           <Text>age:{props.Fd.age}</Text>
         </View>
       )}
